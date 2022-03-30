@@ -1,4 +1,4 @@
-# Bridges / Dune Analytics
+## Bridges / Dune Analytics
 
 There have been multiple instances of bridges that have been used to help move assets and state from one ecosystem to another. We’d like you to create a small dashboard highlighting some of this activity. There are a few pointers that we could suggest, but please feel free to present this information as you see fit!
 
@@ -6,13 +6,13 @@ There have been multiple instances of bridges that have been used to help move a
 
 ![Dashboard Preview](./images/dashboard.png)
 
-## 1. What core contracts would you use to track this kind of activity?
+### 1. What core contracts would you use to track this kind of activity?
 
 - If the bridge works as an escrow, one can simply check the balance of the bridge contract.
 
 - If the bridge acts as an issuer, one can check the total supply of issued tokens. In practice (or at least in Dune) this is fairly costly as it requires aggregating all transactions over the life of the bridge.
 
-## 2. Trends around volume/TVL, assets, bridging solutions, user activity, key contracts, highly used/in-demand contracts over a weekly period
+### 2. Trends around volume/TVL, assets, bridging solutions, user activity, key contracts, highly used/in-demand contracts over a weekly period
 
 - Trends appear to follow the overall market (assuming a bridge is "mature")
 
@@ -39,7 +39,7 @@ There have been multiple instances of bridges that have been used to help move a
   1. NEAR lost 50% of its TVL for 24 hours on two occasions where other chain TVLs grew, why/how did this happen?
      1. What's the withdrawal process for the NEAR bridge look like?
 
-## 3. If you were to move assets from one ecosystem to another, which kind of bridge solution/design would you use? There is some ambiguity in this question, but feel free to expound on your thoughts
+### 3. If you were to move assets from one ecosystem to another, which kind of bridge solution/design would you use? There is some ambiguity in this question, but feel free to expound on your thoughts
 
 - Escrow on local chain -> mint on remote chain
 
@@ -48,7 +48,7 @@ There have been multiple instances of bridges that have been used to help move a
 - Another option could be a cross-chain liquidity pool for tokens with different native chains
   - Wouldn't require burning/minting for each TX
 
-## 4. What are the core issues you see with Dune Analytics as it relates to highlighting more information on this category?
+### 4. What are the core issues you see with Dune Analytics as it relates to highlighting more information on this category?
 
 - Individual bridge behavior must be understood and accounted for
 
@@ -60,9 +60,9 @@ There have been multiple instances of bridges that have been used to help move a
 
 - Inbound bridges (Issuers EX: REN) require keeping track of the token total supply which is more costly than one might think (requires aggregating all transactions)
 
-## 5. If you were to build out a product like Dune Analytics, what kind of architecture/software components would you use?
+### 5. If you were to build out a product like Dune Analytics, what kind of architecture/software components would you use?
 
-### Requirements
+#### Requirements
 
 - Fast appends and reads
 
@@ -78,7 +78,7 @@ There have been multiple instances of bridges that have been used to help move a
 
 When looking at these requirements, they seemed incredibly similar to that of a metrics pipeline!
 
-### Architecture
+#### Architecture
 
 Indexer - Prometheus?
 
@@ -102,7 +102,7 @@ Storage - Time Series Database
 
 - Performs downsampling of old data
 
-### Software
+#### Software
 
 - Prometheus
 
@@ -136,7 +136,7 @@ Storage - Time Series Database
 
   - The underlying storage mechanism for InfluxDB is [Bolt](https://github.com/boltdb/bolt) which is a key/value database. Would it be possible to replace this with IPFS? Performance might be an issue but food for thought.
 
-## 6. Given a chance to re-architect Dune Analytics (as per the issues seen), how would you go about doing it?
+### 6. Given a chance to re-architect Dune Analytics (as per the issues seen), how would you go about doing it?
 
 1. Use a TSDB with each bucket mapping to a Dune datatable. Use [Flux](https://docs.influxdata.com/influxdb/cloud/query-data/get-started/) or [PromQL](https://prometheus.io/docs/prometheus/latest/querying/basics/) to query.
 
@@ -150,13 +150,13 @@ Food for thought:
 
 - Users wanting to add data could run their own instance. Influxdb supports having other InfluxDB instances as inputs
 
-# Solana indexing
+## Solana indexing
 
 Choose your favourite app on Solana ecosystem and present a small dashboard pertaining to this app
 
 [Solana TX Reading](https://medium.com/@asmiller1989/solana-transactions-in-depth-1f7f7fe06ac2)
 
-### Project
+#### Project
 
 ORCA DEX
 
@@ -168,7 +168,7 @@ Raydium DEX
 
 - Other large DEX on Solana
 
-### Indexer
+#### Indexer
 
 - **[SolScan](https://public-api.solscan.io/docs/#/Account/get_account_transactions)** Indexer
 
@@ -194,7 +194,7 @@ Raydium DEX
 
   - No publicly available query interface afaik
 
-## What kind of explorer/graphQL endpoint did you prefer to do this on and why?
+### What kind of explorer/graphQL endpoint did you prefer to do this on and why?
 
 SOLScan
 
@@ -202,13 +202,13 @@ SOLScan
 
 - Since we know the account hashes of both DEX's SOL/USDC pools, getting all transfer amounts/directions is somewhat trivial
 
-## Describe this project and justify what you feel are its most important metrics. Would also be great to highlight some of its metrics in comparison to other competitors
+### Describe this project and justify what you feel are its most important metrics. Would also be great to highlight some of its metrics in comparison to other competitors
 
 - Important metrics would be swap volume for a given time period, tvl increase/decrease for a given time period, volume of sol vs volume of usd received for a given time period
 
 - Going to look at SOL/USDC since that's the pool with the highest TVL for both DEXs
 
-## What are the main differences between indexers on Solana and Eth?
+### What are the main differences between indexers on Solana and Eth?
 
 - ETH indexers mainly use events to provide per-project indexing, SOL indexers use transactions/accounts
 
@@ -218,17 +218,17 @@ SOLScan
 
 - Without events, Solana indexers must perform significantly more parsing/decoding of transactions to uncover useful data
 
-## Trends around user activity, actions taken over different time periods
+### Trends around user activity, actions taken over different time periods
 
 - API Limits of SOLScan coupled with little storage on my laptop make aggregating data over weeks/months unfeasible.
 
 - Will look at a single day and see if I can extract any useful info.
 
-# Drift Protocol
+## Drift Protocol
 
 Drift Protocol is building out a dynamic vAMM to help facilitate trading of perpetual instruments. Drift has put out their [Python SDK](https://github.com/drift-labs/driftpy) as part of their offering in order to help fetch data from the protocol
 
-## 1. Play around with the SDK and see how you can set this up for efficient querying. Are there any limits that you notice as part of fetching data across calls? Feel free to express this as intuitively as possible
+### 1. Play around with the SDK and see how you can set this up for efficient querying. Are there any limits that you notice as part of fetching data across calls? Feel free to express this as intuitively as possible
 
 No examples, just a barebones api reference :'(
 
@@ -242,29 +242,29 @@ Luckily theres some docs for the Typescript sdk although the two sdk's are a bit
 - The funding rates returned are not equivalent to the funding rates shown on the website.
   - These must be calculated using the following formula: `100*( 1/24)*(row["mark_price_twap"]-row["oracle_price_twap"])/row["oracle_price_twap"]`
 
-## 2. Build out a few graphs relating to funding rates, protocol revenues, and trading history
+### 2. Build out a few graphs relating to funding rates, protocol revenues, and trading history
 
-### Long/Short Ratio
+#### Long/Short Ratio
 
 ![Long Short Ratio](./images/long_short_ratio.png)
 
-### Cumulative Fees Generated
+#### Cumulative Fees Generated
 
 ![Cumulative Fees Generated](./images/cumulative_fees_generated.png)
 
-### Fee Generation Delta
+#### Fee Generation Delta
 
 ![Cumulative Fees Generated](./images/cumulative_fees_delta.png)
 
-### Fees by Market
+#### Fees by Market
 
 ![Fees By Market](./images/fees_by_market.png)
 
-### Funding Rates by Market
+#### Funding Rates by Market
 
 ![Funding Rates By Market](./images/funding_rates_by_market.png)
 
-## 3. Any thoughts on how to expose this data - especially if you’d like to expose this to data analysts and create a data pipeline? What kind of setup would you have in mind for such a usecase?
+### 3. Any thoughts on how to expose this data - especially if you’d like to expose this to data analysts and create a data pipeline? What kind of setup would you have in mind for such a usecase?
 
 - Keep the current offering for current calculations (or up to a day old)
 
