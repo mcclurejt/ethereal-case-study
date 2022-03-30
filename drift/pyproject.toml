@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "drift"
+version = "0.1.0"
+description = ""
+authors = ["mcclurejt <mcclurejt@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+driftpy = "^0.5.1"
+pandas = "^1.4.1"
+numpy = "^1.22.3"
+pythclient = "^0.1.0"
+matplotlib = "^3.5.1"
+requests = "^2.27.1"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
