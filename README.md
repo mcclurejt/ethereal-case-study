@@ -38,6 +38,13 @@ There have been multiple instances of bridges that have been used to help move a
   1. How was Arbi able to obtain such explosive adoption AND retain its userbase?
   1. NEAR lost 50% of its TVL for 24 hours on two occasions where other chain TVLs grew, why/how did this happen?
      1. What's the withdrawal process for the NEAR bridge look like?
+        1. Withdrawals are relatively fast taking at most 16 hours
+     1. How many people were involved?
+        1. 03/01 had 38 unique users, 03/02 had 75 unique users
+     1. What could've caused it?
+        1. Searching google for headlines around these dates showed that the Russian-Ukraine conflict was announced on this day! :facepalm:
+     1. Why only NEAR? Arbi and AVA went up between March 1st and 2nd...
+        1. Compared to the other protocols, NEAR has an very high Whale TX to Unique Daily User ratio (TM). High percentage of whales -> high percentage of actively-managed positions -> more responsive to current events -> high volatility
 
 ### 3. If you were to move assets from one ecosystem to another, which kind of bridge solution/design would you use? There is some ambiguity in this question, but feel free to expound on your thoughts
 
@@ -232,6 +239,8 @@ Drift Protocol is building out a dynamic vAMM to help facilitate trading of perp
 
 No examples, just a barebones api reference :'(
 
+Put in a PR to add some [HERE](https://github.com/drift-labs/driftpy/pull/10)
+
 Luckily theres some docs for the Typescript sdk although the two sdk's are a bit different
 
 - One limit is the fact that only 1024 items are returned with no opportunity for pagination. This means users are expected to index their own data if they want historical access
@@ -263,6 +272,8 @@ Luckily theres some docs for the Typescript sdk although the two sdk's are a bit
 #### Funding Rates by Market
 
 ![Funding Rates By Market](./images/funding_rates_by_market.png)
+
+Matplotlib was giving me a tough time with this one, apologies for the poor formatting
 
 ### 3. Any thoughts on how to expose this data - especially if you’d like to expose this to data analysts and create a data pipeline? What kind of setup would you have in mind for such a usecase?
 

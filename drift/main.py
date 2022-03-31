@@ -118,9 +118,9 @@ async def drift():
 
 async def indexing():
     startDate = int(time.mktime(
-        datetime.datetime(2022, 3, 1, hour=12).timetuple()))
+        datetime.datetime(2022, 3, 20).timetuple()))
     endDate = int(time.mktime(datetime.datetime(
-        2022, 3, 1, hour=20).timetuple()))
+        2022, 3, 21).timetuple()))
 
     orcaAccount = 'JU8kmKzDHF9sXWsnoznaFDFezLsE5uomX2JkRMbmsQP'
     generate_transaction_csv(startDate, endDate, orcaAccount, "orca")
@@ -155,20 +155,30 @@ def generate_transaction_csv(startDate, endDate, account, name):
                 break
             data.extend(rdata)
             params["offset"] += params["limit"]
+            if params["offset"] % 250 == 0:
+                print(f"recorded {params['offset']} tx's")
         else:
             print("unknown error")
             break
     data = list(map(lambda x: {
+                'address': x['address'],
                 'changeType': x['changeType'],
                 'changeAmount': x['changeAmount'],
                 'decimals': x['decimals'],
                 'symbol': x['symbol'],
-                'blockTime': x['blockTime']
+                'blockTime': x['blockTime'],
+                'tokenAddress': x['tokenAddress'],
+                '_id': x['_id']
                 }, data))
     df = pd.DataFrame.from_records(data)
     df.to_csv(f"{name}.csv")
     print(f"Finished recording {len(data)} tx's for {name}")
     print()
+
+
+def visualization():
+    orca_df = pd.read_csv('./orca.csv')
+    raydium_df = pd.read_csv('./raydium.csv')
 
 
 asyncio.run(drift())
